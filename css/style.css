@@ -1,0 +1,1351 @@
+:root {
+  --primary: #0afff0; /* Neon Cyan */
+  --bg: #050505;
+  --text: #ffffff;
+  --glass: rgba(255, 255, 255, 0.05);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg);
+  color: var(--text);
+  overflow: hidden; /* Hide scrollbar for the body, scroll the wrapper */
+}
+
+/* FILM GRAIN OVERLAY */
+.grain {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 9999;
+  opacity: 0.05;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+}
+
+/* PARALLAX WRAPPER */
+.parallax-wrapper {
+  height: 100vh;
+  overflow-x: hidden;
+  overflow-y: auto;
+  perspective: 10px; /* The magic depth */
+}
+
+/* PARALLAX GROUPS */
+header {
+  position: relative;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transform-style: preserve-3d;
+  z-index: -1;
+}
+
+/* BACKGROUND LAYER (Far away) */
+/* UPDATED BACKGROUND LAYER */
+.bg-layer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  /* Keeps the parallax depth */
+  transform: translateZ(-10px) scale(2);
+  z-index: -2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden; /* Important so video doesn't overflow */
+}
+
+/* NEW: Video Styling */
+.bg-video {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Ensures video fills screen without stretching */
+  opacity: 0.4; /* Low opacity so text is readable */
+  filter: contrast(1); /* Makes it look like black & white film */
+}
+
+/* Rest of your CSS (root, body, parallax-wrapper, etc.) stays the same */
+
+/* FOREGROUND CONTENT (Base depth) */
+/* PARENT CONTAINER */
+.hero-content {
+  width: 100%; /* Force full screen width */
+  height: 100%; /* Ensure it fills the header height */
+  display: flex; /* Puts items side-by-side */
+  align-items: center; /* Vertically centers them */
+  transform: translateZ(0);
+  z-index: 1;
+}
+
+/* THE TWO HALVES (Text & Image Containers) */
+.split-item {
+  flex: 1; /* Makes them take equal space (50% each) */
+  display: flex;
+  justify-content: center; /* Centers content inside the 50% box */
+  align-items: center;
+  height: 100%;
+}
+
+/* IMAGE STYLING */
+.hero-image {
+  width: 50%; /* Fills its 50% container */
+  height: 50%; /* Fills height */
+  object-fit: cover; /* Ensures image covers area without stretching */
+  opacity: 0.8; /* Optional: blends slightly with background */
+}
+
+/* ADJUST TEXT ALIGNMENT */
+h1 {
+  text-align: left; /* Resets text alignment */
+  margin-left: 5vw; /* Adds some padding from the center line */
+}
+
+h1 {
+  font-size: 8vw;
+  text-transform: uppercase;
+  letter-spacing: -5px;
+  line-height: 0.9;
+}
+
+.subtitle {
+  font-size: 1.5rem;
+  letter-spacing: 5px;
+  color: var(--primary);
+  margin-top: 20px;
+  text-transform: uppercase;
+}
+
+/* SECTIONS */
+.section {
+  position: relative;
+  padding: 100px 10vw;
+  background: var(--bg);
+  z-index: 2; /* Sits on top of parallax header */
+}
+
+.section h2 {
+  font-size: 4rem;
+  margin-bottom: 50px;
+  border-bottom: 1px solid var(--primary);
+  display: inline-block;
+}
+
+/* GRID LAYOUT FOR COURSES */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 40px;
+}
+
+.card {
+  background: rgba(255, 255, 255, 0.03);
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: 0.3s;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-10px);
+  background: rgba(10, 255, 240, 0.05);
+  border-color: var(--primary);
+}
+
+.card h3 {
+  font-size: 2rem;
+  margin-bottom: 15px;
+}
+
+.card p {
+  color: #aaa;
+  line-height: 1.6;
+}
+
+/* FOOTER */
+footer {
+  padding: 50px;
+  text-align: center;
+  border-top: 1px solid #333;
+  color: #555;
+  background: var(--bg);
+}
+/* Blinking Cursor Animation */
+.cursor {
+  display: inline-block;
+  font-weight: bold;
+  color: var(--primary); /* Uses your neon cyan color */
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0;
+  }
+}
+/* SECTION STYLING IMPROVEMENTS */
+.section-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.eyebrow {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 3px;
+  font-size: 0.9rem;
+  display: block;
+  margin-bottom: 10px;
+}
+
+h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 5rem !important;
+  margin-bottom: 40px;
+  line-height: 1;
+}
+
+/* VISION SECTION SPECIFICS */
+.vision-grid {
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.vision-text p {
+  font-size: 1.2rem;
+  line-height: 1.6;
+  color: #ccc;
+  margin-bottom: 20px;
+}
+
+.stat-item {
+  border-bottom: 1px solid #333;
+  padding: 20px 0;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.5rem;
+  display: flex;
+  align-items: center;
+}
+
+.stat-item span {
+  color: var(--primary);
+  margin-right: 20px;
+  font-size: 1rem;
+}
+
+/* CARDS IMPROVEMENT */
+.card-number {
+  font-family: "Bebas Neue";
+  font-size: 3rem;
+  color: rgba(10, 255, 240, 0.2);
+  margin-bottom: 10px;
+}
+
+/* CONTACT SECTION SPECIFICS */
+.contact-section {
+  background: #0a0a0a;
+  padding-top: 150px;
+}
+
+.contact-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 100px;
+}
+
+.contact-details {
+  margin-top: 40px;
+}
+
+.contact-details p {
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.final-footer {
+  margin-top: 100px;
+  border-top: 1px solid #222;
+  padding: 40px 0;
+  text-align: center;
+  font-size: 0.8rem;
+  letter-spacing: 1px;
+}
+
+/* Navigation Helpers */
+.nav-container {
+  position: absolute;
+  top: 30px;
+  left: 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  z-index: 10;
+  padding: 0 5%; /* Adds a little margin from the screen edges */
+  box-sizing: border-box;
+}
+
+.nav-link {
+  flex: 1;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px; /* Increased for cinematic feel */
+  font-size: 1.1rem;
+  transition: color 0.3s;
+}
+
+.logo-wrap {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Mathematically centers items */
+  gap: 12px; /* Adjust space between image and text */
+}
+
+.logo-icon img {
+  height: 50px; /* Set this to your desired size */
+  width: auto;
+  display: block; /* Removes extra bottom margin on images */
+}
+
+.logo-text {
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2.2rem; /* Proportional to the 50px logo */
+  line-height: 1; /* Crucial: removes extra vertical space around letters */
+  letter-spacing: 3px;
+  text-transform: uppercase;
+
+  /* VISUAL FIX: Nudge the text down to align its visual 'middle' 
+     with the logo's middle. Adjust 2px up or down as needed. */
+  transform: translateY(2px);
+}
+
+.nav-link:hover {
+  color: var(--primary);
+}
+
+.hero-footer-text {
+  position: absolute;
+  bottom: 30px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  z-index: 10;
+  color: white;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 2rem;
+  letter-spacing: 2px;
+  pointer-events: none;
+}
+/* FORCE FULL HEIGHT FOR ALL SECTIONS */
+.fullscreen-section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center; /* Centers content vertically */
+  position: relative;
+  background: var(--bg);
+  padding: 80px 10vw;
+  box-sizing: border-box;
+  border-bottom: 1px solid #111;
+}
+
+/* VISION SECTION GRID (50/50 Split) */
+.vision-section {
+  padding: 0; /* Removing padding to allow grid to hit edges */
+}
+
+.split-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two equal halves */
+  width: 100%;
+  height: 100vh;
+}
+
+.grid-side {
+  height: 100%;
+  display: flex;
+  align-items: center;
+  padding: 0 10%;
+}
+
+.content-side {
+  background: rgba(255, 255, 255, 0.02); /* Subtle contrast for the text side */
+}
+
+.inner-content h2 {
+  font-size: 5rem;
+  font-family: "Bebas Neue", sans-serif;
+  color: var(--primary);
+}
+
+.inner-content p {
+  font-size: 1.3rem;
+  line-height: 1.8;
+  color: #ccc;
+  margin-top: 20px;
+}
+
+/* RE-STYLING CARDS FOR FULLSCREEN VIEW */
+.courses-section .grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 30px;
+  width: 100%;
+  margin-top: 40px;
+}
+
+.card {
+  height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+/* CONTACT SECTION BOTTOM ALIGNMENT */
+.contact-section {
+  flex-direction: column;
+  justify-content: center;
+}
+
+.final-footer {
+  position: absolute;
+  bottom: 40px;
+  width: 100%;
+  text-align: center;
+  opacity: 0.5;
+  font-size: 0.8rem;
+}
+
+/* HELPERS */
+.eyebrow {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 4px;
+  font-size: 0.8rem;
+  margin-bottom: 10px;
+  display: block;
+}
+/* GLOBAL SECTION SETTINGS */
+.fullscreen-section {
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  background: var(--bg);
+  padding: 0 10vw;
+  box-sizing: border-box;
+}
+
+/* TYPOGRAPHY COLORS */
+.white-text {
+  color: #ffffff !important;
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 6vw !important; /* Large cinematic size */
+  letter-spacing: 2px;
+}
+
+.eyebrow {
+  color: var(--primary);
+  text-transform: uppercase;
+  letter-spacing: 5px;
+  font-size: 0.9rem;
+  margin-bottom: 20px;
+  display: block;
+}
+
+/* VISION SECTION (CENTERED) */
+.vision-section {
+  text-align: center;
+}
+
+.vision-statement {
+  font-family: "Inter", sans-serif;
+  font-weight: 200;
+  text-transform: uppercase;
+  letter-spacing: 4px; /* Spread the letters out for a luxury look */
+  font-size: 1.5rem;
+}
+
+/* CONTACT SECTION LAYOUT */
+.contact-layout {
+  display: flex;
+  width: 100%;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.details p {
+  font-size: 1.5rem;
+  margin-bottom: 10px;
+  color: #fff;
+}
+
+.contact-right {
+  display: flex;
+  gap: 80px;
+}
+
+.link-group h4 {
+  font-family: "Bebas Neue";
+  color: var(--primary);
+  margin-bottom: 20px;
+  font-size: 1.5rem;
+}
+
+.link-group a {
+  display: block;
+  color: #fff;
+  text-decoration: none;
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  transition: opacity 0.3s;
+}
+
+.link-group a:hover {
+  opacity: 0.5;
+}
+
+/* FOOTER */
+.bottom-footer {
+  position: absolute;
+  bottom: 30px;
+  width: 100%;
+  text-align: center;
+  color: #444;
+  font-size: 0.8rem;
+  letter-spacing: 2px;
+}
+.vision-section {
+  position: relative;
+  overflow: hidden;
+}
+
+/* THE SLIDESHOW CONTAINER */
+.vision-bg-slideshow {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+}
+
+/* THE INDIVIDUAL SLIDES */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: crossFade 15s infinite; /* Total duration for all slides */
+}
+
+/* OVERLAY: This makes the white text pop */
+.vision-bg-slideshow::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.6); /* Adjust 0.6 to make it darker or lighter */
+  z-index: 1;
+}
+
+/* Ensure content stays above the background */
+.centered-content {
+  position: relative;
+  z-index: 2;
+}
+
+/* CROSS-FADE ANIMATION */
+/* If you have 3 images, each should be visible for roughly 33% of the time */
+@keyframes crossFade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  } /* Fade in */
+  33% {
+    opacity: 1;
+  } /* Stay visible */
+  43% {
+    opacity: 0;
+  } /* Fade out */
+  100% {
+    opacity: 0;
+  }
+}
+
+/* Offset each slide's start time */
+.slide:nth-child(1) {
+  animation-delay: 0s;
+}
+.slide:nth-child(2) {
+  animation-delay: 5s;
+}
+.slide:nth-child(3) {
+  animation-delay: 10s;
+}
+
+/* OPTIONAL: TEXT GLOW (To make it even more visible) */
+.white-text {
+  text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 0, 0, 0.4);
+}
+/* THE VISION SECTION CONTAINER */
+.vision-section {
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transform-style: preserve-3d; /* Required for parallax */
+}
+
+/* THE BACKGROUND WRAPPER (Pushed back in Z-space) */
+.parallax-bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 120%; /* Slightly taller to account for movement */
+  z-index: -1;
+  /* translateZ pushes it back, scale makes it fill the view again */
+  transform: translateZ(-5px) scale(1.6);
+  pointer-events: none;
+}
+
+/* THE INDIVIDUAL SLIDES */
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  /* Added a Ken Burns (zoom) effect for extra cinematic feel */
+  animation: crossFade 15s infinite, kenBurns 15s infinite;
+}
+
+/* DARK OVERLAY FOR READABILITY */
+.parallax-bg::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.7),
+    rgba(0, 0, 0, 0.4),
+    rgba(0, 0, 0, 0.7)
+  );
+  z-index: 1;
+}
+
+/* TEXT CONTENT (Stays at Z=0) */
+.centered-content {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(0);
+  text-align: center;
+}
+
+/* ANIMATIONS */
+@keyframes crossFade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1);
+  }
+  100% {
+    transform: scale(1.2);
+  }
+}
+
+/* Slide Delays */
+.slide:nth-child(1) {
+  animation-delay: 0s;
+}
+.slide:nth-child(2) {
+  animation-delay: 5s;
+}
+.slide:nth-child(3) {
+  animation-delay: 10s;
+}
+/* THE VISION SECTION */
+.vision-section {
+  position: relative;
+  height: 50vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  /* This allows the children to exist in 3D space */
+  transform-style: preserve-3d;
+}
+
+/* THE BACKGROUND CONTAINER (Depth Layer) */
+.parallax-bg-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  /* translateZ pushes it away from the viewer. 
+     scale(2) compensates for the visual shrinking caused by distance */
+  transform: translateZ(-10px) scale(2.1);
+  z-index: -1;
+}
+
+.vision-bg-slideshow {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+
+.slide {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  /* Keep the cross-fade animation, but movement is now scroll-based */
+  animation: crossFade 15s infinite;
+}
+
+/* OVERLAY FOR CONTRAST */
+.vision-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    to bottom,
+    rgba(5, 5, 5, 1) 0%,
+    rgba(5, 5, 5, 0.4) 40%,
+    rgba(5, 5, 5, 0.4) 60%,
+    rgba(5, 5, 5, 1) 100%
+  );
+  z-index: 1;
+}
+
+/* FOREGROUND CONTENT (Standard Depth) */
+.centered-content {
+  position: relative;
+  z-index: 2;
+  transform: translateZ(0); /* Sits on the base layer */
+  text-align: center;
+}
+
+/* ANIMATION FOR FADING SLIDES */
+@keyframes crossFade {
+  0% {
+    opacity: 0;
+  }
+  10% {
+    opacity: 1;
+  }
+  33% {
+    opacity: 1;
+  }
+  43% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+.slide:nth-child(1) {
+  animation-delay: 0s;
+}
+.slide:nth-child(2) {
+  animation-delay: 5s;
+}
+.slide:nth-child(3) {
+  animation-delay: 10s;
+}
+
+/* TYPOGRAPHY */
+/* SECTION 2 SPECIFIC FIXES */
+/* SECTION 2: VISION */
+/* SECTION 2: VISION */
+.vision-section {
+  position: relative;
+  height: 100vh;
+  background-color: #000; /* Visible as the image zooms out */
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+#vision-zoom-bg {
+  width: 100vw;
+  height: 100vh;
+  will-change: transform;
+  transform: scale(1); /* Starts at full screen */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.slide {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  opacity: 0;
+  animation: crossFade 15s infinite;
+
+  /* CINEMATIC FILTER: Grayscale + High Contrast */
+  filter: grayscale(0%) contrast(100%) brightness(100%);
+}
+
+/* Optional: Subtle vignette on the image itself */
+#vision-zoom-bg::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  box-shadow: inset 0 0 100px rgba(0, 0, 0, 0.5);
+  pointer-events: none;
+}
+/* EXIT FADE LOGIC */
+/* SECTION 2: VISION SECTION */
+/* SECTION 2 ADJUSTMENTS */
+.vision-section {
+  position: relative;
+  background-color: var(--bg); /* Force background color */
+  border: none; /* Remove any accidental borders */
+  padding-bottom: 0; /* Remove bottom padding */
+}
+
+/* SECTION 3 ADJUSTMENTS */
+.courses-section {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start; /* Aligns content to the top */
+  align-items: center;
+  position: relative;
+  width: 100%;
+  min-height: 150vh;
+  background-color: transparent;
+  /* STACKING: Top gradient layer masks the image layer below it */
+  background-image: url("wall.png");
+
+  background-size: cover;
+  background-position: center top; /* Anchors the top of the image to the top of the section */
+  background-repeat: no-repeat;
+  /* filter: grayscale(0%) contrast(150%) brightness(100%); */
+  /* REMOVED: background-attachment: fixed; */
+  /* This ensures the image scrolls naturally with the content */
+
+  /* margin-top: -150px; */
+  border: none;
+  padding-top: 100px;
+  padding-bottom: 100px;
+  z-index: 2;
+}
+.vision-section::after {
+  content: "";
+  position: absolute;
+  inset: 0; /* covers the whole section */
+
+  /* Linear gradient: solid black at bottom to transparent at the middle */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    /* Solid black at the very bottom */ rgba(0, 0, 0, 0.6) 20%,
+    /* Fade begins */ transparent 50%
+      /* Completely invisible by the halfway point */
+  );
+
+  pointer-events: none;
+  z-index: 1;
+}
+.courses-section::after {
+  content: "";
+  position: absolute;
+  /* Instead of inset: 0, we anchor it strictly to the bottom */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  /* This ensures the vignette is always 30% of the screen height */
+  height: 30vh;
+
+  /* Linear gradient starting from solid black at the very bottom */
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    /* Pure black at the screen edge */ rgba(0, 0, 0, 0.8) 30%,
+    /* Deep shadow */ rgba(0, 0, 0, 0) 100% /* Fades out completely */
+  );
+
+  pointer-events: none;
+  z-index: 5; /* Increased to stay above the images */
+}
+/* POSTER GRID – 3 x 2 layout */
+.posters-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 40px;
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* Centering logic */
+  justify-items: center;
+  align-items: center;
+}
+
+.poster {
+  width: 100%; /* fills the grid cell width */
+  max-width: 320px; /* keeps posters from getting too wide */
+  aspect-ratio: 2 / 3;
+  object-fit: cover;
+  border-radius: 6px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+  transition: all 0.4s ease;
+}
+
+.poster:hover {
+  transform: translateY(-10px) scale(1.05);
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.8);
+  filter: brightness(1.1); /* subtle pop on hover */
+}
+
+/* HOVER EFFECT (matches your cinematic style) */
+.courses-section .posters-grid {
+  grid-template-columns: repeat(3, 1fr); /* 3 posters per row */
+}
+.courses-section h2 {
+  text-align: center;
+  width: 100%;
+}
+.section2-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* Centers the Heading and the Grid */
+  width: 90%;
+  max-width: 1200px;
+  position: relative;
+  z-index: 2;
+}
+.footer-branding {
+  width: 100%;
+  height: 50vh; /* Locked to half screen height */
+  background-color: #050505;
+  padding: 0 4vw; /* Margin from the side walls */
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  overflow: hidden;
+  padding-bottom: 50px;
+  background-image: none !important;
+}
+
+.branding-container {
+  display: flex;
+  flex-direction: row;
+  align-items: center; /* Ensures vertical alignment */
+  justify-content: center;
+  gap: 1vh;
+  width: 100%;
+  height: 100%; /* Fills the 50vh */
+}
+
+.footer-logo {
+  /* This forces the image to be exactly 50vh tall */
+  height: 100%;
+  width: auto;
+  flex-shrink: 0;
+  object-fit: contain;
+  /* Removes any default bottom spacing images sometimes have */
+  display: block;
+}
+
+.footer-text {
+  font-family: "Bebas Neue", sans-serif;
+  /* We use a slightly larger font size to compensate for 
+     internal font metrics and reach the top/bottom edges */
+  font-size: 55vh;
+  /* Setting line-height to less than 1 crops the 
+     internal 'air' out of the font box */
+  line-height: 0.7;
+  color: #fff;
+  text-transform: uppercase;
+  letter-spacing: -1.5vw;
+  white-space: nowrap;
+  flex-shrink: 0;
+
+  /* Flex centering for the text itself */
+  display: flex;
+  align-items: center;
+
+  /* Nudge the text down slightly to account for the 
+     fact that Bebas Neue sits high in its box */
+  transform: translateY(6%);
+}
+
+.copyright-text {
+  position: absolute;
+  bottom: 20px; /* instead of 20px */
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: sans-serif; /* Clean font for legal text */
+  font-size: 0.7rem;
+  color: rgba(255, 255, 255, 0.4); /* Faded so it doesn't distract */
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin: 0;
+  z-index: 10;
+}
+
+@media (max-width: 768px) {
+  .footer-text {
+    font-size: 45vh;
+  }
+  .copyright-text {
+    font-size: 0.5rem;
+    bottom: 10px;
+  }
+}
+.admission-section {
+  background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)),
+    /* Darkens the image */
+      url("https://images.unsplash.com/photo-1478720568477-152d9b164e26?q=80&w=2000"); /* Lens/Camera still */
+  background-size: cover;
+  background-position: center;
+  /* Optional: adds a grainy film texture */
+  background-blend-mode: multiply;
+}
+
+/* THE VIGNETTE (Only at the bottom) */
+.admission-section::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    to top,
+    rgba(0, 0, 0, 1) 0%,
+    rgba(0, 0, 0, 0.6) 20%,
+    transparent 50%
+  );
+  pointer-events: none;
+  z-index: 1;
+}
+
+.admission-section::before {
+  content: "";
+  position: absolute;
+  top: 20%;
+  right: 10%;
+  width: 500px;
+  height: 500px;
+  background: radial-gradient(
+    circle,
+    rgba(10, 255, 240, 0.05) 0%,
+    transparent 70%
+  );
+  filter: blur(50px);
+  z-index: 0;
+}
+
+.split-content-container {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  width: 100%;
+  padding: 0 8vw; /* Horizontal margin from screen walls */
+  gap: 5vw;
+  align-items: center;
+}
+
+/* Left Side Styling */
+.content-left {
+  flex: 1;
+  text-align: left;
+}
+
+.content-left h2 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+  font-family: "Bebas Neue", sans-serif;
+}
+
+/* Right Side Styling (The Form) */
+.content-right {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.admission-form {
+  background: rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(10px); /* Cinematic frosted glass look */
+  padding: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+  width: 100%;
+  max-width: 450px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.admission-form input,
+.admission-form select {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  color: white;
+  font-family: inherit;
+}
+.admission-form select {
+  background: rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  padding: 15px;
+  color: white;
+  font-family: inherit;
+  width: 100%;
+  border-radius: 4px;
+  cursor: pointer;
+
+  /* 1. Remove default browser styling */
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+
+  /* 2. Add custom cinematic arrow */
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' fill='white' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: calc(100% - 20px) center; /* Position arrow on the right */
+  padding-right: 45px; /* Give text room so it doesn't hit the arrow */
+
+  transition: all 0.3s ease;
+}
+
+.submit-btn {
+  background: white;
+  color: black;
+  border: none;
+  padding: 15px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: 0.3s ease;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px;
+}
+
+.submit-btn:hover {
+  background: #0afff0; /* Neon highlight on hover */
+}
+
+/* Responsive: Stack vertically on small screens */
+@media (max-width: 992px) {
+  .split-content-container {
+    flex-direction: column;
+    text-align: center;
+    padding-top: 100px;
+  }
+  .content-left {
+    text-align: center;
+  }
+}
+
+.snow-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 1;
+  overflow: hidden;
+}
+
+.snow-container::after,
+.snow-container::before {
+  content: "";
+  position: absolute;
+  top: -100%; /* Starts above the screen */
+  left: 0;
+  right: 0;
+  bottom: 0;
+  /* This creates white dots (snow) */
+  background-image: radial-gradient(4px 4px at 100px 50px, #fff, transparent),
+    radial-gradient(3px 3px at 200px 150px, #fff, transparent),
+    radial-gradient(4px 4px at 300px 250px, #fff, transparent),
+    radial-gradient(3px 3px at 400px 350px, #fff, transparent);
+  background-size: 600px 600px; /* How often the pattern repeats */
+  animation: snow-animation 10s linear infinite;
+}
+
+/* Second layer for depth - moving at a different speed */
+.snow-container::after {
+  background-size: 400px 400px;
+  animation-duration: 15s;
+  opacity: 0.5;
+}
+
+@keyframes snow-animation {
+  0% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(100%);
+  }
+}
+
+/* Ensure the Torch Overlay allows the snow to shine through */
+.admission-section .vision-overlay {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+  /* This is the Torch JS Variable logic from before */
+  background: radial-gradient(
+    circle 250px at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(0, 0, 0, 0.9) 100%
+  );
+}
+.footer-branding,
+.contact-section {
+  border-top: none !important;
+  border: none !important;
+  outline: none !important;
+}
+
+.contact-section {
+  background: #0a0a0a;
+  min-height: 120vh; /* Extremely tall for a cinematic scroll gap */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Pushes top content and footer apart */
+  padding-top: 150px;
+}
+
+.contact-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+}
+
+.top-content {
+  text-align: center;
+  /* This ensures the Connect and Socials stay relatively close */
+}
+
+.contact-left h2 {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 5.5rem;
+  letter-spacing: 5px;
+  margin-bottom: 20px;
+}
+
+.details p {
+  font-size: 1.3rem;
+  color: rgba(255, 255, 255, 0.6);
+  margin-bottom: 8px;
+}
+
+/* SOCIAL SECTION */
+.social-wrapper {
+  margin-top: 60px; /* Space between contact info and socials */
+}
+
+.follow-us {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 1.2rem;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.4);
+  margin-bottom: 20px;
+}
+
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 35px;
+}
+
+.social-links img {
+  width: 32px;
+  height: auto;
+  filter: brightness(0) invert(1);
+  opacity: 0.5;
+  transition: all 0.4s ease;
+}
+
+.social-links img:hover {
+  opacity: 1;
+  transform: scale(1.15);
+}
+
+/* FOOTER BRANDING (CLEAN) */
+.footer-branding {
+  width: 100%;
+  height: 50vh;
+  background: #0a0a0a;
+  display: flex;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  border: none; /* Removes any potential lines */
+}
+
+.footer-text {
+  font-family: "Bebas Neue", sans-serif;
+  font-size: 55vh;
+  line-height: 0.7;
+  color: #fff;
+  letter-spacing: -1.5vw;
+  white-space: nowrap;
+  transform: translateY(6.5%);
+}

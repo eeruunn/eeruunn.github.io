@@ -88,6 +88,10 @@ header {
   transform: translateZ(0);
   z-index: 1;
 }
+/* HERO TEXT INITIAL STATES */
+.phrase {
+  transition: opacity 0.3s ease;
+}
 
 /* THE TWO HALVES (Text & Image Containers) */
 .split-item {
@@ -780,6 +784,12 @@ h2 {
   transform: translateZ(0); /* Sits on the base layer */
   text-align: center;
 }
+h3 {
+  font-size: 4vh;
+  margin-inline: 8vw;
+  /* letter-spacing: -2.5px; */
+  line-height: 1;
+}
 
 /* ANIMATION FOR FADING SLIDES */
 @keyframes crossFade {
@@ -1034,7 +1044,7 @@ h2 {
 
 .copyright-text {
   position: absolute;
-  bottom: 20px; /* instead of 20px */
+  bottom: 20px;
   left: 50%;
   transform: translateX(-50%);
   font-family: sans-serif; /* Clean font for legal text */
@@ -1264,11 +1274,11 @@ h2 {
 
 .contact-section {
   background: #0a0a0a;
-  min-height: 120vh; /* Extremely tall for a cinematic scroll gap */
+  min-height: 80vh; /* Extremely tall for a cinematic scroll gap */
   display: flex;
   flex-direction: column;
   justify-content: space-between; /* Pushes top content and footer apart */
-  padding-top: 150px;
+  padding-top: 100px;
 }
 
 .contact-layout {
@@ -1348,4 +1358,260 @@ h2 {
   letter-spacing: -1.5vw;
   white-space: nowrap;
   transform: translateY(6.5%);
+}
+.institute-name {
+  overflow: hidden;
+}
+.institute-name h1 {
+  opacity: 0;
+  animation-name: slideUp;
+  animation-duration: 2s;
+
+  /* Using a 'Power' ease for a high-end feel */
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+
+  /* Other shorthand properties */
+  animation-delay: 0.5s;
+  animation-fill-mode: forwards;
+}
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+.menu {
+  display: none;
+}
+
+.drawer {
+  position: absolute;
+  width: 0;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+
+  /* 2. Apply the blur effect to the background */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 25;
+  transition: ease-out 0.5s;
+  /* visibility: hidden; */
+  overflow: hidden;
+}
+.drawer-content {
+  padding-top: 2vh;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.drawer-link {
+  flex: 1;
+  text-align: center;
+  color: white;
+  text-decoration: none;
+  font-family: "Bebas Neue", sans-serif;
+  letter-spacing: 2px; /* Increased for cinematic feel */
+  font-size: 2rem;
+  transition: color 0.3s;
+}
+#drawerclose {
+  width: 3vh;
+  height: 3vh;
+}
+.drawerbtncon {
+  margin-bottom: 8vh;
+  padding: 3vh;
+  display: flex;
+  justify-content: end;
+}
+
+#programs-mobile {
+  display: none;
+}
+
+@media (max-width: 500px) {
+  .menu {
+    display: block;
+  }
+  .menu img {
+    width: 4vh;
+  }
+  .hero-content {
+    flex-direction: column;
+  }
+  #item2 {
+    display: none;
+  }
+  h1 {
+    text-align: center; /* Resets text alignment */
+    /* Adds some padding from the center line */
+  }
+
+  h1 {
+    font-size: 10vw;
+    text-transform: uppercase;
+    letter-spacing: -2.5px;
+    line-height: 1.2;
+  }
+  h3 {
+    font-size: 2vh;
+    margin-inline: 8vw;
+    /* letter-spacing: -2.5px; */
+    line-height: 1;
+  }
+  .nav-link {
+    display: none;
+  }
+  .footer-text {
+    font-family: "Bebas Neue", sans-serif;
+    /* We use a slightly larger font size to compensate for 
+     internal font metrics and reach the top/bottom edges */
+    font-size: 50vw;
+    /* Setting line-height to less than 1 crops the 
+     internal 'air' out of the font box */
+    line-height: 0.7;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: -1.5vw;
+    white-space: nowrap;
+    flex-shrink: 0;
+
+    /* Flex centering for the text itself */
+    display: flex;
+    align-items: center;
+
+    /* Nudge the text down slightly to account for the 
+     fact that Bebas Neue sits high in its box */
+    transform: translateY(6%);
+  }
+  .footer-branding {
+    width: 100%;
+    height: 50vw; /* Locked to half screen height */
+    /* background-color: #050505; */
+    padding: 0 4vw; /* Margin from the side walls */
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    overflow: hidden;
+    padding-bottom: 50px;
+    background-image: none !important;
+  }
+
+  .branding-container {
+    display: flex;
+    flex-direction: row;
+    align-items: center; /* Ensures vertical alignment */
+    justify-content: center;
+    gap: 1vh;
+    width: 100%;
+    height: 100%; /* Fills the 50vh */
+  }
+
+  .footer-logo {
+    /* This forces the image to be exactly 50vh tall */
+    height: 100%;
+    width: auto;
+    flex-shrink: 0;
+    object-fit: contain;
+    /* Removes any default bottom spacing images sometimes have */
+    display: block;
+  }
+
+  #programs-desktop {
+    display: none !important;
+  }
+
+  /* 2. FORCE SHOW THE MOBILE SECTION */
+  #programs-mobile {
+    display: flex !important; /* Keep flex so vertical centering works */
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+  }
+
+  /* 3. Keep .courses-section generic, but don't let it override IDs */
+  .courses-section {
+    width: 100%;
+    min-height: 100vh;
+    padding: 0;
+    overflow: hidden;
+  }
+  /* 2. Container for the slider */
+
+  /* 3. The Slider Itself */
+  .slider {
+    width: 100%;
+    display: block;
+    margin-top: 20px;
+  }
+
+  /* 4. The Individual Slides (The "Item" div) */
+  .item {
+    /* Critical for Center Mode: gives space between slides */
+    padding: 0 15px;
+    box-sizing: border-box;
+    /* Transition for the scaling effect */
+    transition: transform 0.3s ease, opacity 0.3s ease;
+    opacity: 0.5; /* Fade out side images */
+    transform: scale(0.9); /* Shrink side images */
+  }
+
+  /* 5. The Active Center Slide */
+  .slider .slick-center {
+    opacity: 1;
+    transform: scale(1.1); /* Scale up the center image */
+    z-index: 10;
+  }
+
+  /* 6. The Image Styling */
+  .poster {
+    width: 100%;
+    height: auto; /* Let the height adjust naturally */
+    aspect-ratio: auto; /* Remove the strict 2/3 ratio */
+    object-fit: contain; /* Ensures the whole image is always visible */
+
+    display: block;
+    margin: 0 auto;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+  }
+
+  /* Keep the centering logic */
+  /* .courses-section {
+    display: flex !important;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    padding: 0;
+  } */
+
+  /* Reset text alignment */
+  .eyebrow {
+    text-align: center !important;
+    width: 100%;
+    display: block;
+    margin-left: 0;
+  }
+
+  /* Ensure the main Heading is also centered */
+  h2.white-text {
+    text-align: center;
+    width: 100%;
+  }
+  .slider .slick-list {
+    padding-top: 40px !important;
+    padding-bottom: 40px !important;
+  }
+  .section2-container,
+  .course-content {
+    width: 100%;
+    max-width: 100%;
+    overflow: visible; /* Important: Don't clip the shadow or scale */
+  }
 }

@@ -9,14 +9,45 @@
       rel="stylesheet"
     />
     <title>SIFI | Future Film Institute</title>
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick-theme.css"
+    />
   </head>
 
   <body>
+    <div class="drawer" id="drawer">
+      <div class="drawer-content">
+        <div class="drawerbtncon">
+          <img src="media/close.png" id="drawerclose" onclick="closeDrawer()" />
+        </div>
+
+        <a href="#vision" class="drawer-link" onclick="closeDrawer()">VISION</a>
+        <a href="#programs" class="drawer-link" onclick="closeDrawer()"
+          >PROGRAMS</a
+        >
+        <a href="#contact" class="drawer-link" onclick="closeDrawer()">ABOUT</a>
+        <a href="#contact" class="drawer-link" onclick="closeDrawer()"
+          >CONTACT</a
+        >
+      </div>
+    </div>
+
     <div class="grain"></div>
 
     <div class="parallax-wrapper">
       <header>
         <div class="nav-container">
+          <div class="menu">
+            <img src="media/menu.png" id="menubtn" onclick="openDrawer()" />
+          </div>
+
           <a href="#vision" class="nav-link">VISION</a>
           <a href="#programs" class="nav-link">PROGRAMS</a>
           <div class="logo-wrap">
@@ -25,6 +56,9 @@
           </div>
           <a href="#contact" class="nav-link">ABOUT</a>
           <a href="#contact" class="nav-link">CONTACT</a>
+          <div class="menu">
+            <a href="#contact"><img src="media/contact-us.png" /></a>
+          </div>
         </div>
 
         <div class="bg-layer">
@@ -35,7 +69,7 @@
             loop
             playsinline
             preload="none"
-            poster="videothumb.jpg"
+            poster="media/videothumb.jpg"
           >
             <source src="media/backvid2.mp4" type="video/mp4" />
           </video>
@@ -43,15 +77,26 @@
 
         <div class="hero-content">
           <div class="split-item">
-            <h1 class="phrase" id="phrase"></h1>
+            <div>
+              <!-- <h1 class="phrase" id="phrase">
+                Satyajit Ray<br />International<br />Film <br />Institute
+              </h1> -->
+              <div class="institute-name"><h1>Satyajit Ray</h1></div>
+              <div class="institute-name"><h1>International</h1></div>
+              <div class="institute-name"><h1>Film</h1></div>
+              <div class="institute-name"><h1>Institute</h1></div>
+              <!-- </h1> -->
+            </div>
           </div>
-          <div class="split-item"></div>
+          <div class="split-item" id="item2"></div>
         </div>
 
         <div class="hero-footer-text">
-          SATYAJIT RAY INTERNATIONAL FILM INSTITUTE <br />
-          AFFILIATED TO KANNUR UNIVERSITY
+          <h3 id="phrase2"></h3>
         </div>
+        <!-- <div class="hero-footer-text">
+          <h5>AFFILIATED TO KANNUR UNIVERSITY</h5>
+        </div> -->
       </header>
 
       <section class="fullscreen-section vision-section" id="vision">
@@ -92,22 +137,71 @@
           </p>
         </div>
       </section>
-
-      <section class="fullscreen-section courses-section" id="programs">
+      <!---==========================Courses section==============================-->
+      <!---==========================Courses section==============================-->
+      <!---==========================Courses section==============================-->
+      <section
+        class="courses-section"
+        id="programs-desktop"
+        style="background-color: black"
+      >
         <div class="section2-container">
           <span class="eyebrow">Academic Path</span>
           <h2 class="white-text">COURSES WE OFFER</h2>
-          <div class="grid posters-grid">
-            <img src="1.png" alt="Course 1" class="poster" />
-            <img src="2.png" alt="Course 2" class="poster" />
-            <img src="3.png" alt="Course 3" class="poster" />
-            <img src="4.png" alt="Course 4" class="poster" />
-            <img src="5.png" alt="Course 5" class="poster" />
-            <img src="6.png" alt="Course 6" class="poster" />
+          <div class="posters-grid">
+            <div class="item">
+              <img src="1.png" alt="Course 1" class="poster" />
+            </div>
+            <div class="item">
+              <img src="2.png" alt="Course 2" class="poster" />
+            </div>
+            <div class="item">
+              <img src="3.png" alt="Course 3" class="poster" />
+            </div>
+            <div class="item">
+              <img src="4.png" alt="Course 4" class="poster" />
+            </div>
+            <div class="item">
+              <img src="5.png" alt="Course 5" class="poster" />
+            </div>
+            <div class="item">
+              <img src="6.png" alt="Course 6" class="poster" />
+            </div>
           </div>
         </div>
       </section>
-
+      <section
+        class="courses-section"
+        id="programs-mobile"
+        style="background-color: black"
+      >
+        <div class="course-content">
+          <span class="eyebrow">Academic Path</span>
+          <h2 class="white-text">COURSES WE OFFER</h2>
+          <div class="slidercontainer">
+            <div class="slider">
+              <div class="item">
+                <img src="1.png" alt="Course 1" class="poster" />
+              </div>
+              <div class="item">
+                <img src="2.png" alt="Course 2" class="poster" />
+              </div>
+              <div class="item">
+                <img src="3.png" alt="Course 3" class="poster" />
+              </div>
+              <div class="item">
+                <img src="4.png" alt="Course 4" class="poster" />
+              </div>
+              <div class="item">
+                <img src="5.png" alt="Course 5" class="poster" />
+              </div>
+              <div class="item">
+                <img src="6.png" alt="Course 6" class="poster" />
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
       <!--========================Enrollement Section ============================-->
       <!--========================Enrollement Section ============================-->
       <!--========================Enrollement Section ============================-->
@@ -209,12 +303,90 @@
         </footer>
       </section>
     </div>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script
+      type="text/javascript"
+      src="https://cdn.jsdelivr.net/gh/kenwheeler/slick@1.8.1/slick/slick.min.js"
+    ></script>
+    <script>
+      $(document).ready(function () {
+        function initMobileSlider() {
+          var $slider = $(".slider");
+
+          // Check window width
+          if ($(window).width() < 768) {
+            // If slider is NOT initialized yet, start it
+            if (!$slider.hasClass("slick-initialized")) {
+              $slider.slick({
+                centerMode: true,
+                centerPadding: "60px",
+                slidesToShow: 1,
+                infinite: true,
+                autoplay: true, // Set true if you want auto-scroll
+                arrows: false,
+                dots: true,
+              });
+            }
+          } else {
+            // If screen is big (Desktop) AND slider IS running, destroy it
+            if ($slider.hasClass("slick-initialized")) {
+              $slider.slick("unslick");
+            }
+          }
+        }
+
+        // Run on page load
+        initMobileSlider();
+
+        // Run whenever the browser is resized
+        $(window).on("resize", function () {
+          initMobileSlider();
+        });
+      });
+    </script>
+
+    <!-- <script>
+      $(document).ready(function () {
+        function initMobileSlider() {
+          var $slider = $(".posters-grid");
+
+          if ($(window).width() < 769) {
+            if (!$slider.hasClass("slick-initialized")) {
+              $slider.slick({
+                centerMode: true,
+                centerPadding: "60px",
+                slidesToShow: 1,
+                infinite: true,
+                autoplay: false,
+                arrows: false,
+                dots: true,
+                variableWidth: false,
+              });
+
+              // BUG FIX: Force Slick to recalculate dimensions after load
+              setTimeout(function () {
+                $slider.slick("setPosition");
+              }, 100);
+            }
+          } else {
+            if ($slider.hasClass("slick-initialized")) {
+              $slider.slick("unslick");
+            }
+          }
+        }
+
+        initMobileSlider();
+        $(window).on("resize", function () {
+          initMobileSlider();
+        });
+      });
+    </script> -->
   </body>
   <script>
     var i = 0;
-    var txt = "Script.<br>Shoot..<br>Screen...";
-    var speed = 100;
-    var container = document.getElementById("phrase");
+    var txt = "Where the River of Tradition Meets the Sea of Innovation";
+    var speed = 50;
+    var container = document.getElementById("phrase2");
 
     function typeWriter() {
       if (i < txt.length) {
@@ -268,6 +440,16 @@
         zoomBg.style.transform = `scale(${scaleValue})`;
       }
     });
+
+    var menubtn = document.getElementById("menubtn");
+    function openDrawer() {
+      var drawer = document.getElementById("drawer");
+      drawer.style.width = "75vw";
+    }
+    function closeDrawer() {
+      var drawer = document.getElementById("drawer");
+      drawer.style.width = "0vw";
+    }
   </script>
 </html>
 <!-- <div class="card">

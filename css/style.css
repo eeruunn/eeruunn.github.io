@@ -1457,6 +1457,7 @@ h3 {
     letter-spacing: -2.5px;
     line-height: 1.2;
   }
+
   h3 {
     font-size: 2vh;
     margin-inline: 8vw;
@@ -1603,6 +1604,7 @@ h3 {
   h2.white-text {
     text-align: center;
     width: 100%;
+    font-size: 3rem !important;
   }
   .slider .slick-list {
     padding-top: 40px !important;

@@ -1402,45 +1402,73 @@ h3 {
   display: none;
 }
 
-.drawer {
-  position: absolute;
-  width: 0;
-  height: 100vh;
-  background-color: rgba(0, 0, 0, 0.75);
-
-  /* 2. Apply the blur effect to the background */
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 25;
-  transition: ease-out 0.5s;
-  /* visibility: hidden; */
-  overflow: hidden;
-}
 .drawer-content {
   padding-top: 2vh;
   height: 100%;
   display: flex;
   flex-direction: column;
+  /* Removed flex: 1 here as it's not needed on the parent container */
 }
-.drawer-link {
+
+/* Container takes up equal space */
+.drawerlink-container {
   flex: 1;
-  text-align: center;
+  width: 100%;
+  display: flex; /* Ensures the link inside can stretch to fill it */
+}
+
+/* Link fills the ENTIRE container */
+.drawer-link {
+  width: 100%;
+  height: 100%; /* This is the magic line. The whole box is now clickable. */
+
+  /* Text Centering */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Visual Styles */
   color: white;
   text-decoration: none;
   font-family: "Bebas Neue", sans-serif;
-  letter-spacing: 2px; /* Increased for cinematic feel */
+  letter-spacing: 2px;
   font-size: 2rem;
   transition: color 0.3s;
 }
-#drawerclose {
-  width: 3vh;
-  height: 3vh;
+
+/* Optional: Add a subtle background change on touch/hover to show the area */
+.drawer-link:active,
+.drawer-link:hover {
+  background-color: rgba(255, 255, 255, 0.05); /* Very subtle highlight */
+  color: #0afff0;
 }
+
 .drawerbtncon {
-  margin-bottom: 8vh;
+  /* Ensure the button doesn't stretch, it only takes the space it needs */
+  flex: 0 0 auto;
+  margin-bottom: 2vh; /* Adjusted margin slightly */
   padding: 3vh;
   display: flex;
   justify-content: end;
+}
+
+/* Keep the rest of your drawer styles as they were */
+.drawer {
+  position: absolute;
+  width: 0;
+  height: 100vh;
+  background-color: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 25;
+  transition: ease-out 0.5s;
+  overflow: hidden;
+}
+
+#drawerclose {
+  width: 3vh;
+  height: 3vh;
+  cursor: pointer; /* Added cursor pointer for better UX */
 }
 
 #programs-mobile {

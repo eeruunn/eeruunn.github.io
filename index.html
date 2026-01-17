@@ -28,14 +28,17 @@
           <img src="media/close.png" id="drawerclose" onclick="closeDrawer()" />
         </div>
 
-        <a href="#vision" class="drawer-link" onclick="closeDrawer()">VISION</a>
+        <a href="#admissions" class="drawer-link" onclick="closeDrawer()"
+          >ADMISSIONS</a
+        >
         <a href="#programs-mobile" class="drawer-link" onclick="closeDrawer()"
           >PROGRAMS</a
         >
-        <a href="#contact" class="drawer-link" onclick="closeDrawer()">ABOUT</a>
+
         <a href="#contact" class="drawer-link" onclick="closeDrawer()"
           >CONTACT</a
         >
+        <a href="#contact" class="drawer-link" onclick="closeDrawer()">ABOUT</a>
       </div>
     </div>
 
@@ -48,7 +51,7 @@
             <img src="media/menu.png" id="menubtn" onclick="openDrawer()" />
           </div>
 
-          <a href="#vision" class="nav-link">VISION</a>
+          <a href="#admissions" class="nav-link">ADMISSIONS</a>
           <a href="#programs-desktop" class="nav-link">PROGRAMS</a>
           <div class="logo-wrap" style="z-index: 2000">
             <a href="index.html" style="text-decoration: none">
@@ -61,8 +64,8 @@
               </div>
             </a>
           </div>
-          <a href="#contact" class="nav-link">ABOUT</a>
           <a href="#contact" class="nav-link">CONTACT</a>
+          <a href="#contact" class="nav-link">ABOUT</a>
           <div class="menu">
             <a href="#contact"><img src="media/contact-us.png" /></a>
           </div>
@@ -360,7 +363,7 @@
                 slidesToShow: 1,
                 infinite: true,
                 autoplay: true, // Set true if you want auto-scroll
-                arrows: false,
+                arrows: true,
                 dots: true,
               });
             }
@@ -380,6 +383,9 @@
           initMobileSlider();
         });
       });
+      // ... inside your script ...
+
+      // ...
     </script>
 
     <!-- <script>

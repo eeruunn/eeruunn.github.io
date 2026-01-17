@@ -4,9 +4,6 @@
   --text: #ffffff;
   --glass: rgba(255, 255, 255, 0.05);
 }
-h1 {
-  font-family: "Helvetica Neue", Arial, sans-serif !important;
-}
 
 * {
   box-sizing: border-box;

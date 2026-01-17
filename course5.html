@@ -1,0 +1,888 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link href="css/style.css" rel="stylesheet" />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+    <title>BA Sound Recording & Sound Design | SIFI</title>
+    <style>
+      /* --- GLOBAL OVERRIDES --- */
+      body {
+        background-color: #050505;
+        color: #ffffff;
+        overflow: hidden !important;
+      }
+
+      /* FILM GRAIN */
+      .grain {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+        z-index: 9999;
+        opacity: 0.05;
+        background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.65' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+      }
+
+      /* --- PARALLAX STRUCTURE --- */
+      .parallax-wrapper {
+        height: 100vh;
+        overflow-x: hidden;
+        overflow-y: auto;
+        perspective: 10px;
+      }
+
+      header {
+        position: relative;
+        height: 100vh;
+        transform-style: preserve-3d;
+        z-index: -1;
+      }
+
+      .bg-layer {
+        transform: translateZ(-10px) scale(2);
+        z-index: -2;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        pointer-events: none;
+      }
+
+      .nav-container {
+        position: absolute;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        top: 30px;
+        width: 100%;
+        z-index: 1000;
+        transform: translateZ(0);
+      }
+
+      .hero-content {
+        transform: translateZ(0);
+        height: 100%;
+        display: flex;
+        align-items: center;
+      }
+
+      /* --- LINK STYLES --- */
+      .logo-link {
+        text-decoration: none;
+        color: white;
+        display: block;
+        outline: none;
+      }
+      .logo-link:visited,
+      .logo-link:hover,
+      .logo-link:active,
+      .logo-link:focus {
+        color: white;
+        text-decoration: none;
+        outline: none;
+      }
+
+      /* --- GLASS STYLING --- */
+      .glass-card,
+      .course-overview {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-radius: 16px;
+        padding: 40px;
+        color: #fff;
+        height: 100%;
+      }
+
+      .course-overview {
+        max-width: 500px;
+        width: 100%;
+        margin: 0 auto;
+        height: auto;
+      }
+
+      /* Typography */
+      .course-overview-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2.5rem;
+        letter-spacing: 2px;
+        margin-bottom: 30px;
+        text-align: center;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 15px;
+        color: #fff;
+      }
+
+      .course_overview-content {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+        margin-bottom: 20px;
+        padding: 10px;
+      }
+      .course_overview-content img {
+        width: 40px;
+        opacity: 0.8;
+        filter: brightness(0) invert(1);
+      }
+      .course_overview-content p {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.1rem;
+        color: #ccc;
+        margin: 0;
+      }
+      .course_overview-content strong {
+        color: #fff;
+        font-weight: 600;
+      }
+
+      .institute-name h1 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 6vw;
+        line-height: 0.9;
+        text-transform: uppercase;
+        margin-left: 5vw;
+        letter-spacing: -2px;
+      }
+
+      /* --- SECTIONS --- */
+      .main-content {
+        position: relative;
+        z-index: 2;
+        background-color: #050505;
+        box-shadow: 0 -50px 100px #050505;
+      }
+
+      .section-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 100px 20px;
+      }
+
+      .eyebrow {
+        color: #0afff0;
+        text-transform: uppercase;
+        letter-spacing: 4px;
+        font-size: 0.9rem;
+        display: block;
+        margin-bottom: 10px;
+        font-family: "Helvetica Neue", sans-serif;
+        text-align: center;
+      }
+
+      .section-title {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 5rem;
+        color: #fff;
+        text-align: center;
+        margin-bottom: 60px;
+        line-height: 1;
+        letter-spacing: 2px;
+      }
+
+      /* Expanded Details Grid */
+      .details-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+      }
+      @media (min-width: 900px) {
+        .details-grid {
+          grid-template-columns: 1.5fr 1fr;
+        }
+        .full-width-grid {
+          grid-column: span 2;
+        }
+      }
+
+      .glass-card h3 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 2rem;
+        letter-spacing: 1px;
+        margin-top: 0;
+        margin-bottom: 20px;
+        color: #0afff0;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding-bottom: 10px;
+      }
+
+      .glass-card p,
+      .glass-card li {
+        font-family: "Poppins", sans-serif;
+        color: #aaa;
+        line-height: 1.8;
+        font-size: 1rem;
+        margin-bottom: 15px;
+      }
+      .glass-card ul {
+        padding-left: 20px;
+      }
+      .glass-card li {
+        margin-bottom: 10px;
+      }
+
+      /* --- DETAILED FEES STRUCTURE --- */
+      .fees-grid {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 30px;
+        align-items: start;
+      }
+      @media (min-width: 900px) {
+        .fees-grid {
+          grid-template-columns: 1fr 1fr;
+        }
+      }
+
+      .fee-year-card {
+        background: rgba(255, 255, 255, 0.03);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 12px;
+        height: auto;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .fee-header {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 20px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        text-align: center;
+      }
+
+      .fee-header h4 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 1.8rem;
+        margin: 0;
+        letter-spacing: 2px;
+      }
+
+      .fee-list {
+        padding: 20px;
+      }
+
+      .fee-row {
+        display: flex;
+        justify-content: space-between;
+        padding: 12px 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        font-family: "Poppins", sans-serif;
+        font-size: 0.9rem;
+        color: #bbb;
+      }
+      .fee-row:last-child {
+        border-bottom: none;
+      }
+      .fee-row span.price {
+        color: #fff;
+        font-weight: 600;
+        text-align: right;
+      }
+
+      /* Summary Table Styling */
+      .summary-table-container {
+        margin-top: 40px;
+        overflow-x: auto;
+      }
+      .summary-table {
+        width: 100%;
+        border-collapse: collapse;
+        font-family: "Poppins", sans-serif;
+        color: #ccc;
+      }
+      .summary-table th {
+        text-align: left;
+        padding: 15px;
+        background: rgba(255, 255, 255, 0.05);
+        border-bottom: 2px solid #0afff0;
+        color: #fff;
+        text-transform: uppercase;
+        font-size: 0.9rem;
+      }
+      .summary-table td {
+        padding: 15px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .total-row td {
+        color: #0afff0;
+        font-weight: bold;
+        font-size: 1.2rem;
+        border-top: 2px solid rgba(255, 255, 255, 0.1);
+      }
+
+      /* --- FOOTER & CONTACT --- */
+      .contact-section {
+        background: #0a0a0a;
+        padding-top: 100px;
+        border-top: 1px solid #111;
+      }
+      .contact-layout {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 80px;
+      }
+      .contact-left h2 {
+        font-family: "Bebas Neue", sans-serif;
+        font-size: 4rem;
+        text-align: center;
+        letter-spacing: 3px;
+        margin-bottom: 30px;
+      }
+      .details {
+        text-align: center;
+      }
+      .details p {
+        font-family: "Poppins", sans-serif;
+        font-size: 1.2rem;
+        color: #888;
+        margin: 5px 0;
+      }
+      .social-links {
+        display: flex;
+        gap: 30px;
+        margin-top: 40px;
+        justify-content: center;
+      }
+      .social-links img {
+        width: 30px;
+        opacity: 0.5;
+        transition: 0.3s;
+        filter: brightness(0) invert(1);
+      }
+      .social-links img:hover {
+        opacity: 1;
+        transform: scale(1.1);
+      }
+
+      /* Scroll Mouse */
+      .scroll-container {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%) translateZ(0);
+        z-index: 10;
+        opacity: 0.7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      .mouse {
+        width: 24px;
+        height: 40px;
+        border: 2px solid #fff;
+        border-radius: 20px;
+        position: relative;
+      }
+      .wheel {
+        width: 4px;
+        height: 6px;
+        background: #fff;
+        position: absolute;
+        top: 8px;
+        left: 50%;
+        transform: translateX(-50%);
+        border-radius: 2px;
+        animation: scroll 2s infinite;
+      }
+      .scroll-text {
+        margin-top: 10px;
+        font-family: "Bebas Neue";
+        letter-spacing: 2px;
+        font-size: 0.9rem;
+      }
+      @keyframes scroll {
+        0% {
+          opacity: 1;
+          top: 8px;
+        }
+        100% {
+          opacity: 0;
+          top: 20px;
+        }
+      }
+
+      /* --- MOBILE LAYOUT ADJUSTMENTS --- */
+      @media (max-width: 900px) {
+        .hero-content {
+          flex-direction: column;
+          justify-content: center;
+          padding-top: 80px;
+          gap: 30px;
+        }
+        .split-item {
+          width: 100%;
+          height: auto;
+          flex: none;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+        }
+        #item2 {
+          display: flex !important;
+        }
+        .institute-name h1 {
+          text-align: center;
+          margin-left: 0;
+          font-size: 3.5rem;
+          line-height: 1.1;
+          margin-bottom: 10px;
+        }
+        .course-overview {
+          max-width: 90%;
+          padding: 25px;
+          background: rgba(0, 0, 0, 0.6);
+        }
+        .course-overview-title {
+          font-size: 1.5rem;
+          margin-bottom: 15px;
+        }
+        .course_overview-content {
+          gap: 15px;
+          margin-bottom: 10px;
+        }
+        .course_overview-content img {
+          width: 30px;
+          height: 30px;
+        }
+        .course_overview-content p {
+          font-size: 1rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="grain"></div>
+
+    <div class="drawer" id="drawer">
+      <div class="drawerbtncon">
+        <img src="media/close.png" id="drawerclose" onclick="closeDrawer()" />
+      </div>
+      <div class="drawer-content">
+        <a href="index.html#vision" class="drawer-link" onclick="closeDrawer()"
+          >VISION</a
+        >
+        <a
+          href="index.html#programs-mobile"
+          class="drawer-link"
+          onclick="closeDrawer()"
+          >PROGRAMS</a
+        >
+        <a href="#contact" class="drawer-link" onclick="closeDrawer()"
+          >CONTACT</a
+        >
+      </div>
+    </div>
+
+    <div class="parallax-wrapper">
+      <header>
+        <div class="nav-container">
+          <div class="menu">
+            <img
+              src="media/menu.png"
+              id="menubtn"
+              onclick="openDrawer()"
+              style="width: 30px; cursor: pointer"
+            />
+          </div>
+          <a
+            href="index.html#vision"
+            class="nav-link"
+            style="font-family: 'Bebas Neue'; letter-spacing: 2px"
+            >VISION</a
+          >
+          <a
+            href="index.html#programs-desktop"
+            class="nav-link"
+            style="font-family: 'Bebas Neue'; letter-spacing: 2px"
+            >PROGRAMS</a
+          >
+
+          <a href="index.html" class="logo-link">
+            <div class="logo-wrap">
+              <div class="logo-icon">
+                <img src="media/logo.png" style="height: 50px" />
+              </div>
+              <span
+                class="logo-text"
+                style="
+                  font-family: 'Bebas Neue';
+                  font-size: 2.2rem;
+                  letter-spacing: 3px;
+                "
+                >SIFI</span
+              >
+            </div>
+          </a>
+
+          <a
+            href="#details"
+            class="nav-link"
+            style="font-family: 'Bebas Neue'; letter-spacing: 2px"
+            >ABOUT</a
+          >
+          <a
+            href="#contact"
+            class="nav-link"
+            style="font-family: 'Bebas Neue'; letter-spacing: 2px"
+            >CONTACT</a
+          >
+          <div class="menu">
+            <a href="#contact"
+              ><img src="media/contact-us.png" style="width: 30px"
+            /></a>
+          </div>
+        </div>
+
+        <div class="bg-layer">
+          <video
+            class="bg-video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="none"
+            poster="media/videothumb.jpg"
+            style="
+              width: 100%;
+              height: 100%;
+              object-fit: cover;
+              opacity: 0.5;
+              filter: contrast(1.1);
+            "
+          >
+            <source src="media/sound.mp4" type="video/mp4" />
+          </video>
+        </div>
+
+        <div class="hero-content">
+          <div class="split-item">
+            <div class="institute-name">
+              <h1>BA Sound Recording<br />& Sound Design</h1>
+            </div>
+          </div>
+          <div class="split-item" id="item2">
+            <div class="course-overview">
+              <div class="course-overview-title">Course Overview</div>
+              <div class="course_overview-content">
+                <img src="media/intake.png" alt="Intake" />
+                <p><strong>Intake:</strong> 25 Seats</p>
+              </div>
+              <div class="course_overview-content">
+                <img src="media/criteria.png" alt="Criteria" />
+                <p><strong>Eligibility:</strong> Plus Two / Equivalent</p>
+              </div>
+              <div class="course_overview-content">
+                <img src="media/duration.png" alt="Duration" />
+                <p><strong>Duration:</strong> 4 Years</p>
+              </div>
+              <div class="course_overview-content">
+                <img src="media/agelimit.png" alt="Age Limit" />
+                <p><strong>Age Limit:</strong> None</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="scroll-container">
+          <div class="mouse"><div class="wheel"></div></div>
+          <div class="scroll-text">SCROLL DOWN</div>
+        </div>
+      </header>
+
+      <main class="main-content">
+        <section class="section-container" id="details">
+          <span class="eyebrow">Academic Curriculum</span>
+          <h2 class="section-title">PROGRAM DETAILS</h2>
+
+          <div class="details-grid">
+            <div class="glass-card">
+              <h3>Course Description</h3>
+              <p>
+                The BA in Audiography & Editing program at Satyajit Ray
+                International Film Institute is designed for students passionate
+                about sound and post-production.
+              </p>
+              <p>
+                Whether you're interested in working on film sets, sound
+                studios, or editing suites, this program provides essential
+                industry-ready skills.
+              </p>
+            </div>
+
+            <div class="glass-card">
+              <h3>What You'll Learn</h3>
+              <p>
+                In-depth training in sound recording, mixing, Foley, sound
+                design, and video editing using industry-standard tools.
+              </p>
+              <ul>
+                <li>Professional audio recording.</li>
+                <li>Sound & video storytelling.</li>
+                <li>Industry tools exposure.</li>
+                <li>Portfolio development.</li>
+              </ul>
+            </div>
+
+            <div class="glass-card full-width-grid" style="text-align: center">
+              <p style="font-size: 1.2rem; color: #fff; margin: 0">
+                "Whether you're interested in working on film sets, sound
+                studios, or editing suites, this program provides essential
+                industry-ready skills."
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section-container" id="fees">
+          <span class="eyebrow">Investment</span>
+          <h2 class="section-title">FEES STRUCTURE</h2>
+
+          <div class="fees-grid">
+            <div class="fee-year-card">
+              <div class="fee-header">
+                <h4>First Year</h4>
+              </div>
+              <div class="fee-list">
+                <div class="fee-row">
+                  <span>Annual Tuition Fee</span
+                  ><span class="price">₹90,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Admission Fee (One Time)</span
+                  ><span class="price">₹2,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Arts & Sports Fee</span
+                  ><span class="price">₹2,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Caution Deposit (Refundable)</span
+                  ><span class="price">₹50,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Infrastructure Fee</span
+                  ><span class="price">₹5,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Amenity Fee</span><span class="price">₹2,500</span>
+                </div>
+                <div class="fee-row">
+                  <span>Stationery Fee</span><span class="price">₹1,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Library Deposit (Refundable)</span
+                  ><span class="price">₹5,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Hostel Admission Fee</span
+                  ><span class="price">₹1,000</span>
+                </div>
+                <div class="fee-row">
+                  <span>Hostel & Canteen Deposit (Refundable)</span
+                  ><span class="price">₹10,000</span>
+                </div>
+                <div class="fee-row total-highlight">
+                  <span>Hostel Rent & Food (Per Month)</span
+                  ><span class="price">₹8,000</span>
+                </div>
+              </div>
+            </div>
+
+            <div style="display: flex; flex-direction: column; gap: 20px">
+              <div class="fee-year-card">
+                <div class="fee-header">
+                  <h4>Second Year</h4>
+                </div>
+                <div class="fee-list">
+                  <div class="fee-row">
+                    <span>Annual Tuition Fee</span
+                    ><span class="price">₹90,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Arts & Sports Fee</span
+                    ><span class="price">₹2,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Infrastructure Fee</span
+                    ><span class="price">₹5,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Amenity Fee</span><span class="price">₹2,500</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Stationery Fee</span><span class="price">₹1,000</span>
+                  </div>
+                  <div class="fee-row total-highlight">
+                    <span>Hostel Rent & Food (Per Month)</span
+                    ><span class="price">₹9,000</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fee-year-card">
+                <div class="fee-header">
+                  <h4>Third Year</h4>
+                </div>
+                <div class="fee-list">
+                  <div class="fee-row">
+                    <span>Annual Tuition Fee</span
+                    ><span class="price">₹90,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Arts & Sports Fee</span
+                    ><span class="price">₹2,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Infrastructure Fee</span
+                    ><span class="price">₹5,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Amenity Fee</span><span class="price">₹2,500</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Stationery Fee</span><span class="price">₹1,000</span>
+                  </div>
+                  <div class="fee-row total-highlight">
+                    <span>Hostel Rent & Food (Per Month)</span
+                    ><span class="price">₹10,000</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="fee-year-card">
+                <div class="fee-header">
+                  <h4>Fourth Year</h4>
+                </div>
+                <div class="fee-list">
+                  <div class="fee-row">
+                    <span>Annual Tuition Fee</span
+                    ><span class="price">₹90,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Arts & Sports Fee</span
+                    ><span class="price">₹2,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Infrastructure Fee</span
+                    ><span class="price">₹5,000</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Amenity Fee</span><span class="price">₹2,500</span>
+                  </div>
+                  <div class="fee-row">
+                    <span>Stationery Fee</span><span class="price">₹1,000</span>
+                  </div>
+                  <div class="fee-row total-highlight">
+                    <span>Hostel Rent & Food (Per Month)</span
+                    ><span class="price">₹11,000</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="glass-card summary-table-container">
+            <h3>Semester-wise Payment Summary</h3>
+            <table class="summary-table">
+              <thead>
+                <tr>
+                  <th>Semester</th>
+                  <th>Fee Amount (₹)</th>
+                  <th>Paid (₹)</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>S1 & S2</td>
+                  <td>₹1,68,500</td>
+                  <td>₹0.00</td>
+                </tr>
+                <tr>
+                  <td>S3 & S4</td>
+                  <td>₹1,00,500</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>S5 & S6</td>
+                  <td>₹1,00,500</td>
+                  <td>-</td>
+                </tr>
+                <tr>
+                  <td>S7 & S8</td>
+                  <td>₹1,00,500</td>
+                  <td>-</td>
+                </tr>
+                <tr class="total-row">
+                  <td>TOTAL FEE</td>
+                  <td colspan="2">₹4,70,000</td>
+                </tr>
+              </tbody>
+            </table>
+            <p
+              style="
+                font-size: 0.8rem;
+                color: #888;
+                margin-top: 15px;
+                font-style: italic;
+              "
+            >
+              * Note: Hostel rent and food expenses must be paid separately on a
+              monthly basis.
+            </p>
+          </div>
+        </section>
+
+        <section class="contact-section" id="contact">
+          <div class="contact-layout">
+            <div class="contact-left">
+              <span class="eyebrow" style="margin-bottom: 20px"
+                >Get in Touch</span
+              >
+              <h2 style="font-family: 'Bebas Neue'; font-size: 3rem; margin: 0">
+                CONNECT
+              </h2>
+              <div class="details" style="margin-top: 30px">
+                <p>admissions@sifi.edu</p>
+                <p>+91 7306108959</p>
+                <p>Kannur, Kerala, India</p>
+              </div>
+            </div>
+
+            <div class="social-links">
+              <a href="#"><img src="media/instagram.png" alt="IG" /></a>
+              <a href="#"><img src="media/linkedin.png" alt="LI" /></a>
+              <a href="#"><img src="media/youtube.png" alt="YT" /></a>
+            </div>
+          </div>
+
+          <footer class="footer-branding">
+            <div class="branding-container">
+              <img src="media/logo2.png" alt="Logo" class="footer-logo" />
+              <span class="footer-text">SIFI</span>
+            </div>
+            <p class="copyright-text">© 2026 SIFI. ALL RIGHTS RESERVED.</p>
+          </footer>
+        </section>
+      </main>
+    </div>
+
+    <script>
+      function openDrawer() {
+        document.getElementById("drawer").style.width = "75vw";
+      }
+      function closeDrawer() {
+        document.getElementById("drawer").style.width = "0";
+      }
+    </script>
+  </body>
+</html>

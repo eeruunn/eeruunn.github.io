@@ -13,6 +13,32 @@
     <title>Document</title>
   </head>
   <body>
+    <script>
+      //   document.addEventListener("mousemove", (e) => {
+      //     const screen = document.querySelector(".homescreen");
+      //     const circle = document.createElement("span");
+      //     circle.classList.add("cursor-circle");
+      //     const rect = screen.getBoundingClientRect();
+      //     circle.style.left = "${e.clientX - rect.left -50}px";
+      //     circle.style.top = "${e.clientY - rect.top -50}px";
+      //     screen.appendChild(circle);
+      //     setTimeout(() => {
+      //       circle.remove();
+      //     }, 3000);
+      //   });
+
+      document.addEventListener("mousemove", function (e) {
+        let body = document.querySelector(".homescreen");
+        let circle = document.createElement("span");
+        circle.classList.add("cursor-circle");
+        circle.style.left = -50 + e.offsetX + "px";
+        circle.style.top = -50 + e.offsetY + "px";
+        body.append(circle);
+        setTimeout(function () {
+          circle.remove();
+        }, 3000);
+      });
+    </script>
     <div class="main-container">
       <div class="menubar">
         <span class="logo"></span>

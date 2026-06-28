@@ -81,11 +81,14 @@ body {
   font-weight: 500;
   line-height: 1;
   letter-spacing: 0;
+  z-index: 10;
 }
 .homescreen {
   /* background-image: url("wallpaper.jpg"); */
-  background-color: blanchedalmond;
+  background: url("backpicg.png");
+  background-attachment: fixed;
   background-size: cover;
+  overflow: hidden;
 }
 #backimg {
   height: 80vh;
@@ -128,4 +131,17 @@ body {
     transform: translateY(100vh);
     opacity: 0;
   }
+}
+
+.cursor-circle {
+  display: block;
+  background-image: url("backpic.png");
+  background-size: cover;
+  height: 100px;
+  width: 100px;
+  border-radius: 50%;
+  position: absolute;
+  pointer-events: none;
+  background-attachment: fixed;
+  background-position: top left;
 }

@@ -14,19 +14,6 @@
   </head>
   <body>
     <script>
-      //   document.addEventListener("mousemove", (e) => {
-      //     const screen = document.querySelector(".homescreen");
-      //     const circle = document.createElement("span");
-      //     circle.classList.add("cursor-circle");
-      //     const rect = screen.getBoundingClientRect();
-      //     circle.style.left = "${e.clientX - rect.left -50}px";
-      //     circle.style.top = "${e.clientY - rect.top -50}px";
-      //     screen.appendChild(circle);
-      //     setTimeout(() => {
-      //       circle.remove();
-      //     }, 3000);
-      //   });
-
       document.addEventListener("mousemove", function (e) {
         let body = document.querySelector(".homescreen");
         let circle = document.createElement("span");
@@ -46,14 +33,92 @@
         <div class="links">Works</div>
         <div class="links">Contact</div>
         <div></div>
-        <div class="links" style="margin-right: 20px">9:13:59 pm</div>
+        <div class="links" id="clock" style="margin-right: 20px">
+          9:13:59 pm
+        </div>
       </div>
       <div class="homescreen">
-        <!-- <img src="mypic.png" id="backimg" /> -->
+        <div class="desktop-icons">
+          <div class="launcher">
+            <img src="folder.png" draggable="false" />
+            <span>Projects</span>
+          </div>
+
+          <div class="launcher">
+            <img src="list.png" draggable="false" />
+            <span>About</span>
+          </div>
+
+          <div class="launcher">
+            <img src="contacts.png" draggable="false" />
+            <span>Contact</span>
+          </div>
+
+          <div class="launcher">
+            <img src="cv.png" draggable="false" />
+            <span>Resume</span>
+          </div>
+        </div>
       </div>
       <div class="scanbar">
         <div class="scan"></div>
       </div>
     </div>
+    <script>
+      function updateClock() {
+        const now = new Date();
+        const time = now.toLocaleTimeString();
+        document.getElementById("clock").textContent = time;
+      }
+      updateClock();
+      setInterval(updateClock, 1000);
+
+      const desktop = document.querySelector(".homescreen");
+
+      document.querySelectorAll(".launcher").forEach((icon) => {
+        let offsetX = 0;
+        let offsetY = 0;
+        let firstDrag = true;
+
+        icon.addEventListener("mousedown", startDrag);
+
+        function startDrag(e) {
+          if (firstDrag) {
+            const rect = icon.getBoundingClientRect();
+            const parent = desktop.getBoundingClientRect();
+
+            icon.style.position = "absolute";
+            icon.style.left = rect.left - parent.left + "px";
+            icon.style.top = rect.top - parent.top + "px";
+
+            desktop.appendChild(icon);
+
+            firstDrag = false;
+          }
+
+          offsetX = e.clientX - icon.offsetLeft;
+          offsetY = e.clientY - icon.offsetTop;
+
+          document.addEventListener("mousemove", drag);
+          document.addEventListener("mouseup", stopDrag);
+        }
+
+        function drag(e) {
+          icon.style.left = e.clientX - offsetX + "px";
+          icon.style.top = e.clientY - offsetY + "px";
+        }
+
+        function stopDrag() {
+          document.removeEventListener("mousemove", drag);
+          document.removeEventListener("mouseup", stopDrag);
+        }
+      });
+
+      document.querySelectorAll(".launcher").forEach((icon) => {
+        icon.addEventListener("dblclick", (event) => {
+          window.location.href = "https://github.com/eeruunn";
+        });
+      });
+    </script>
   </body>
 </html>

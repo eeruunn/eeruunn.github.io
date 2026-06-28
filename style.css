@@ -5,7 +5,7 @@
 body {
   background-color: black;
   height: 100vh;
-  padding: 4vh 6vw;
+  padding: 4vh 4vw;
   display: flex;
 }
 .main-container {
@@ -40,6 +40,36 @@ body {
 
   opacity: 0.9;
 }
+.main-container::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+
+  background: url("noise.png");
+  background-repeat: repeat;
+
+  opacity: 0.05;
+  pointer-events: none;
+
+  /* animation: noise 0.18s steps(3) infinite; */
+}
+/* @keyframes noise {
+  0% {
+    transform: translate(0, 0);
+  }
+  25% {
+    transform: translate(-2%, 1%);
+  }
+  50% {
+    transform: translate(2%, -1%);
+  }
+  75% {
+    transform: translate(-1%, 2%);
+  }
+  100% {
+    transform: translate(1%, -2%);
+  }
+} */
 .menubar {
   background-color: azure;
   display: grid;
@@ -70,5 +100,32 @@ body {
   margin-right: 40px;
   font-size: 24px;
 }
-.crt-effect {
+.scanbar {
+  width: 100%;
+  height: 100vh;
+  position: absolute;
+  z-index: 1;
+  pointer-events: none;
+}
+.scan {
+  height: 20px;
+  width: 100%;
+  background: linear-gradient(
+    to bottom,
+    transparent,
+    rgba(255, 255, 255, 0.4),
+    transparent
+  );
+  position: absolute;
+  animation: scan 2s linear infinite;
+  pointer-events: none;
+}
+@keyframes scan {
+  0% {
+    transform: translateY(0%);
+  }
+  100% {
+    transform: translateY(100vh);
+    opacity: 0;
+  }
 }
